@@ -12,6 +12,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using OpenXLive;
+using OpenXLive.Silverlight;
+using OpenXLive.Features;
+
 
 namespace PhoneDirect3DXamlAppInterop
 {
@@ -57,6 +61,28 @@ namespace PhoneDirect3DXamlAppInterop
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            GameSession session = XLiveGameManager.CreateSession("XXXXXXXXXXXXXXXXXXXX");
+            session.CreateSessionCompleted += session_CreateSessionCompleted;
+
+            XLiveUIManager.Initialize(this, session);
+
+            session.Open();
+
+        }
+
+        private void session_CreateSessionCompleted(object sender, AsyncEventArgs e)
+        {
+            if (e.Result.ReturnValue)
+            {
+                // Successful to create game session
+            }
+            else
+            {
+                // Error handler
+                System.Diagnostics.Debug.WriteLine(e.Result.ErrorMessage);
+            }
+
+            return;
         }
 
         // Code to execute when the application is launching (eg, from Start)
@@ -81,6 +107,11 @@ namespace PhoneDirect3DXamlAppInterop
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            if (XLiveGameManager.CurrentSession != null && XLiveGameManager.CurrentSession.IsValid)
+            {
+                XLiveGameManager.CurrentSession.Close();
+            }
+
         }
 
         // Code to execute if a navigation fails

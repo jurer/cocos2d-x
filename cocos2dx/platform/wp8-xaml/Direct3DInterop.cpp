@@ -24,6 +24,7 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "Direct3DInterop.h"
 #include "Direct3DContentProvider.h"
+//#include "XLiveDelegate.h"
 
 using namespace Windows::Foundation;
 using namespace Windows::UI::Core;
@@ -36,7 +37,7 @@ using namespace DirectX;
 
 namespace PhoneDirect3DXamlAppComponent
 {
-
+	
 Direct3DInterop::Direct3DInterop() 
     : mCurrentOrientation(DisplayOrientations::Portrait), m_delegate(nullptr)
 {

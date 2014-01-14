@@ -13,6 +13,9 @@
     <ClCompile Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\DirectXBase.cpp" />
     <ClCompile Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\Cocos2dRenderer.cpp" />
     <ClCompile Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\InputEvent.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\OpenXLive\XLiveDelegate.cpp">
+      <Filter>Classes\OpenXLiveHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Classes\AppDelegate.h">
@@ -32,10 +35,19 @@
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\DirectXHelper.h" />
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\InputEvent.h" />
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\InputEventTypes.h" />
+    <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\OpenXLive\ICallback.h">
+      <Filter>Classes\OpenXLiveHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\OpenXLive\XLiveDelegate.h">
+      <Filter>Classes\OpenXLiveHelper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
       <UniqueIdentifier>{f9f8df92-c45f-4fb0-b53e-44782c0e0ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\OpenXLiveHelper">
+      <UniqueIdentifier>{f6cb3400-8574-443c-adef-02551513f398}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

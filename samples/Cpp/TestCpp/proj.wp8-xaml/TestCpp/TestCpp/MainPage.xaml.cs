@@ -100,6 +100,7 @@ namespace PhoneDirect3DXamlAppInterop
         {
             Dispatcher.BeginInvoke(() =>
             {
+                System.Threading.Thread.Sleep(5000);
                 switch (theEvent)
                 {
                     case Cocos2dEvent.ShowKeyboard:

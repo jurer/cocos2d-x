@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Phone.Shell;
 using Windows.UI.Input;
+using PhoneDirect3DXamlAppComponent.OpenXLiveHelper;
 
 namespace PhoneDirect3DXamlAppInterop
 {
@@ -59,6 +60,9 @@ namespace PhoneDirect3DXamlAppInterop
 
                 m_d3dInterop.SetCocos2dEventDelegate(OnCocos2dEvent);
 
+                XLiveDelegate m_XLiveDelegate = new XLiveDelegate();
+                m_XLiveDelegate.SetCallback(new XLiveCallback());
+
             }
         }
 
@@ -99,7 +103,7 @@ namespace PhoneDirect3DXamlAppInterop
         public void OnCocos2dEvent(Cocos2dEvent theEvent)
         {
             Dispatcher.BeginInvoke(() =>
-            {
+            {                
                 switch (theEvent)
                 {
                     case Cocos2dEvent.ShowKeyboard:

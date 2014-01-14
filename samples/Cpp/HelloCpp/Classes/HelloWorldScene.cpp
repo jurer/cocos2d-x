@@ -1,7 +1,11 @@
 #include "HelloWorldScene.h"
 #include "AppMacros.h"
-USING_NS_CC;
+#include "XLiveDelegate.h"
 
+using namespace PhoneDirect3DXamlAppComponent::OpenXLiveHelper;
+
+USING_NS_CC;
+CCLabelTTF* pResponseLabel;
 
 CCScene* HelloWorld::scene()
 {
@@ -65,6 +69,15 @@ bool HelloWorld::init()
     // add the label as a child to this layer
     this->addChild(pLabel, 1);
 
+	pResponseLabel = CCLabelTTF::create("response", "Arial", TITLE_FONT_SIZE);
+
+	// position the label on the center of the screen
+	pResponseLabel->setPosition(ccp(origin.x + visibleSize.width/2,
+		origin.y + pResponseLabel->getContentSize().height));
+
+	// add the label as a child to this layer
+	this->addChild(pResponseLabel, 1);
+
     // add "HelloWorld" splash screen"
     CCSprite* pSprite = CCSprite::create("HelloWorld.png");
 
@@ -81,7 +94,18 @@ bool HelloWorld::init()
 void HelloWorld::menuCloseCallback(CCObject* pSender)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-	CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+	//CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
+	XLiveDelegate^ m_XLiveDelegate = ref new XLiveDelegate();
+	m_XLiveDelegate->GlobalCallback->OnSubmitCompleted += ref new Windows::Foundation::EventHandler<CompletedEventArgs^>(
+		[this](Platform::Object^ sender, CompletedEventArgs^ args){
+			Platform::String ^platform_string = args->ErrorMessage;
+			const wchar_t* wide_chars =  platform_string->Data();
+			char chars[512];
+			wcstombs(chars, wide_chars, 512); 
+			pResponseLabel->setString(chars);
+	});
+	m_XLiveDelegate->GlobalCallback->Leaderboard_Submit("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 100);
+
 #else
     CCDirector::sharedDirector()->end();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
