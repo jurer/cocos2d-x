@@ -61,7 +61,9 @@ namespace PhoneDirect3DXamlAppInterop
                 m_d3dInterop.SetCocos2dEventDelegate(OnCocos2dEvent);
 
                 XLiveDelegate m_XLiveDelegate = new XLiveDelegate();
-                m_XLiveDelegate.SetCallback(new XLiveCallback());
+                XLiveCallback XLiveInstance = new XLiveCallback();
+                XLiveInstance.SetDirect3DInterop(m_d3dInterop);
+                m_XLiveDelegate.SetCallback(XLiveInstance);
 
             }
         }

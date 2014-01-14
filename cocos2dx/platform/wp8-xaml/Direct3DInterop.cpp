@@ -24,7 +24,6 @@ THE SOFTWARE.
 ****************************************************************************/
 #include "Direct3DInterop.h"
 #include "Direct3DContentProvider.h"
-//#include "XLiveDelegate.h"
 
 using namespace Windows::Foundation;
 using namespace Windows::UI::Core;
@@ -119,6 +118,13 @@ void Direct3DInterop::AddPointerEvent(PointerEventType type, PointerEventArgs^ a
     std::lock_guard<std::mutex> guard(mMutex);
     std::shared_ptr<PointerEvent> e(new PointerEvent(type, args));
     mInputEvents.push(e);
+}
+
+void Direct3DInterop::OnOpenXliveEvent(Object^ sender, CompletedEventArgs^ args, Windows::Foundation::EventHandler<CompletedEventArgs^>^ handler)
+{
+	std::lock_guard<std::mutex> guard(mMutex);
+	std::shared_ptr<OpenXLiveEvent> e(new OpenXLiveEvent(sender, args, handler));
+	mInputEvents.push(e);
 }
 
 void Direct3DInterop::ProcessEvents()

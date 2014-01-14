@@ -31,6 +31,8 @@ THE SOFTWARE.
 #include <memory>
 #include "Cocos2dRenderer.h"
 #include "InputEvent.h"
+#include "OpenXLiveEvent.h"
+using namespace PhoneDirect3DXamlAppComponent::OpenXLiveHelper;
 
 namespace PhoneDirect3DXamlAppComponent
 {
@@ -62,6 +64,8 @@ public:
     property Windows::Foundation::Size WindowBounds;
 
     void SetCocos2dEventDelegate(Cocos2dEventDelegate^ delegate);
+
+	void OnOpenXliveEvent(Object^ sender, CompletedEventArgs^ args, Windows::Foundation::EventHandler<CompletedEventArgs^>^ handler);
 
 protected:
     // Event Handlers

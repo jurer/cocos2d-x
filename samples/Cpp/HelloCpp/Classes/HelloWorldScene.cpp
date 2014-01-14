@@ -1,7 +1,7 @@
 #include "HelloWorldScene.h"
 #include "AppMacros.h"
 #include "XLiveDelegate.h"
-
+using namespace PhoneDirect3DXamlAppComponent;
 using namespace PhoneDirect3DXamlAppComponent::OpenXLiveHelper;
 
 USING_NS_CC;
@@ -95,16 +95,33 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
 	//CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
-	XLiveDelegate^ m_XLiveDelegate = ref new XLiveDelegate();
-	m_XLiveDelegate->GlobalCallback->OnSubmitCompleted += ref new Windows::Foundation::EventHandler<CompletedEventArgs^>(
-		[this](Platform::Object^ sender, CompletedEventArgs^ args){
-			Platform::String ^platform_string = args->ErrorMessage;
-			const wchar_t* wide_chars =  platform_string->Data();
-			char chars[512];
-			wcstombs(chars, wide_chars, 512); 
-			pResponseLabel->setString(chars);
-	});
-	m_XLiveDelegate->GlobalCallback->Leaderboard_Submit("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 100);
+
+	//run_async_non_interactive([this](){
+
+		XLiveDelegate^ m_XLiveDelegate = ref new XLiveDelegate();		
+		m_XLiveDelegate->GlobalCallback->OnSubmitCompleted += ref new Windows::Foundation::EventHandler<CompletedEventArgs^>(
+			[this](Platform::Object^ sender, CompletedEventArgs^ args){
+				Platform::String ^platform_string = args->ErrorMessage;
+				const wchar_t* wide_chars =  platform_string->Data();
+				char chars[512];
+				wcstombs(chars, wide_chars, 512); 
+				pResponseLabel->setString(chars);
+		});
+		m_XLiveDelegate->GlobalCallback->Leaderboard_Submit("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", 100);	
+
+		//m_XLiveDelegate->GlobalCallback->OnAwardComplted += ref new Windows::Foundation::EventHandler<CompletedEventArgs^>(
+		//	[this](Platform::Object^ sender, CompletedEventArgs^ args){
+		//	Platform::String ^platform_string = args->ErrorMessage;
+		//	const wchar_t* wide_chars =  platform_string->Data();
+		//	char chars[512];
+		//	wcstombs(chars, wide_chars, 512); 
+		//	pResponseLabel->setString(chars);
+		//});
+		//m_XLiveDelegate->GlobalCallback->Achievement_Award("ASDFASDFASDFASDFASDFASDF");
+
+		m_XLiveDelegate->GlobalCallback->ShowLogon();
+	//});
+	
 
 #else
     CCDirector::sharedDirector()->end();

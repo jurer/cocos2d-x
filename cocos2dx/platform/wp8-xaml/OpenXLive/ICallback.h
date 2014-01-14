@@ -49,8 +49,8 @@ namespace PhoneDirect3DXamlAppComponent
 			//void ShowGameCenter();
 			//// Invokes XLiveUIManager.ShowLeaderboard() and show leaderboard page.
 			//void ShowLeaderboard();
-			//// Invokes XLiveUIManager.ShowLogon() and show logon page.
-			//void ShowLogon();
+			// Invokes XLiveUIManager.ShowLogon() and show logon page.
+			void ShowLogon();
 			//// Invokes XLiveUIManager.ShowMessageThread() and show message thread page.
 			//void ShowMessageThread();
 			//// Invokes XLiveUIManager.ShowMoreGames() and show more games page.

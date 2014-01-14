@@ -16,6 +16,9 @@
     <ClCompile Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\OpenXLive\XLiveDelegate.cpp">
       <Filter>Classes\OpenXLiveHelper</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\OpenXLive\OpenXLiveEvent.cpp">
+      <Filter>Classes\OpenXLiveHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Classes\AppDelegate.h">
@@ -39,6 +42,9 @@
       <Filter>Classes\OpenXLiveHelper</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\OpenXLive\XLiveDelegate.h">
+      <Filter>Classes\OpenXLiveHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\cocos2dx\platform\wp8-xaml\OpenXLive\OpenXLiveEvent.h">
       <Filter>Classes\OpenXLiveHelper</Filter>
     </ClInclude>
   </ItemGroup>
