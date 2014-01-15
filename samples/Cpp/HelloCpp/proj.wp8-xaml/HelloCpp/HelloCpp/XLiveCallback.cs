@@ -39,7 +39,7 @@ namespace PhoneDirect3DXamlAppComponent
             });
         }
 
-        public async void Leaderboard_Submit(string leaderboardKey, int score)
+        public void Leaderboard_Submit(string leaderboardKey, int score)
         {
             // get the UI thread (ie. the Main Thread) to let the worker thread (ie. opengl thread) work normally.
             Deployment.Current.Dispatcher.BeginInvoke(() =>
