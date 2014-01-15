@@ -5,7 +5,7 @@ using PhoneDirect3DXamlAppComponent.OpenXLiveHelper;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using Windows.ApplicationModel.Core;
+using Microsoft.Phone.Controls;
 
 namespace PhoneDirect3DXamlAppComponent
 {
@@ -18,10 +18,25 @@ namespace PhoneDirect3DXamlAppComponent
         public event EventHandler<CompletedEventArgs> OnAwardComplted;
         public event EventHandler<CompletedEventArgs> OnSubmitCompleted;
         private Direct3DInterop m_d3dInterop = null;
+        private PhoneApplicationPage m_MainPage = null;
 
         public void SetDirect3DInterop(Direct3DInterop d3dInterop)
         {
             m_d3dInterop = d3dInterop;
+        }
+
+        public void SetMainPage(PhoneApplicationPage mainPage)
+        {
+            m_MainPage = mainPage;
+        }
+
+        private void CallToShowPage()
+        {
+            // get the UI thread (ie. the Main Thread) to let the worker thread (ie. opengl thread) work normally.
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                m_MainPage.NavigationService.Navigate(new Uri("/Page1.xaml", UriKind.Relative));
+            });
         }
 
         public async void Leaderboard_Submit(string leaderboardKey, int score)
@@ -34,7 +49,7 @@ namespace PhoneDirect3DXamlAppComponent
                 lb.SubmitScoreCompleted += new AsyncEventHandler(lb_SubmitScoreCompleted);
                 lb.SubmitScore(score);
             });
-
+            
             //common worker thread
             //System.Threading.Tasks.Task.Run(async () =>
             //{
@@ -77,7 +92,7 @@ namespace PhoneDirect3DXamlAppComponent
             // get the UI thread (ie. the Main Thread) to let the worker thread (ie. opengl thread) work normally.
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                XLiveUIManager.ShowGameCenter(); 
+                XLiveUIManager.ShowLogon(); 
             });
         }
     }

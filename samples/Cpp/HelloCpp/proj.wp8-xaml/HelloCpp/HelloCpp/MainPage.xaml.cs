@@ -63,6 +63,7 @@ namespace PhoneDirect3DXamlAppInterop
                 XLiveDelegate m_XLiveDelegate = new XLiveDelegate();
                 XLiveCallback XLiveInstance = new XLiveCallback();
                 XLiveInstance.SetDirect3DInterop(m_d3dInterop);
+                XLiveInstance.SetMainPage(this);
                 m_XLiveDelegate.SetCallback(XLiveInstance);
 
             }
