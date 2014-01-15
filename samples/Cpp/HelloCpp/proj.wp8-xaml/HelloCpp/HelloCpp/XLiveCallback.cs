@@ -32,8 +32,17 @@ namespace PhoneDirect3DXamlAppComponent
                 System.Threading.Thread.Sleep(5000);
                 Leaderboard lb = new Leaderboard(XLiveGameManager.CurrentSession, leaderboardKey);
                 lb.SubmitScoreCompleted += new AsyncEventHandler(lb_SubmitScoreCompleted);
-                lb.SubmitScore(score);         
-            });   
+                lb.SubmitScore(score);
+            });
+
+            //common worker thread
+            //System.Threading.Tasks.Task.Run(async () =>
+            //{
+            //    System.Threading.Thread.Sleep(5000);
+            //    Leaderboard lb = new Leaderboard(XLiveGameManager.CurrentSession, leaderboardKey);
+            //    lb.SubmitScoreCompleted += new AsyncEventHandler(lb_SubmitScoreCompleted);
+            //    lb.SubmitScore(score);  
+            //});
         }
 
         void lb_SubmitScoreCompleted(object sender, AsyncEventArgs e)
