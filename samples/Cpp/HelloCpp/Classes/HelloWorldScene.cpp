@@ -123,13 +123,13 @@ bool HelloWorld::init()
     // create and initialize a label
 
 	//std::string strDest = "";
-	//WStrToUTF8(strDest, L"中国");
+	//WStrToUTF8(strDest, L"涓浗");
 	//CCLabelTTF* pLabel = CCLabelTTF::create(strDest.c_str(), "fonts/arialuni.ttf", 32);
 
-	wchar_t str[100] = {L"中国"};  
-	char strs[200] = {0};  
-	WCharToMByte(str,strs,sizeof(str)/sizeof(strs[0]));
-	CCLabelTTF* pLabel = CCLabelTTF::create(strs, "fonts/arialuni.ttf", 32);
+	//wchar_t str[100] = {L"涓浗"};  
+	//char strs[200] = {0};  
+	//WCharToMByte(str,strs,sizeof(str)/sizeof(strs[0]));
+	CCLabelTTF* pLabel = CCLabelTTF::create("涓浗", "fonts/arialuni.ttf", 32);
     //CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", TITLE_FONT_SIZE);
     
     // position the label on the center of the screen
