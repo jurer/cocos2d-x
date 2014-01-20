@@ -1,5 +1,8 @@
 #include "HelloWorldScene.h"
 #include "AppMacros.h"
+#include <string>
+using namespace std;
+
 USING_NS_CC;
 
 
@@ -16,6 +19,69 @@ CCScene* HelloWorld::scene()
 
     // return the scene
     return scene;
+}
+
+BOOL WCharToMByte(LPCWSTR lpcwszStr, LPSTR lpszStr, DWORD dwSize)  
+{  
+	DWORD dwMinSize;  
+	dwMinSize = WideCharToMultiByte(CP_UTF8,NULL,lpcwszStr,-1,NULL,0,NULL,FALSE);  
+	if(dwSize < dwMinSize)  
+	{  
+		return false;  
+	}  
+	WideCharToMultiByte(CP_UTF8,NULL,lpcwszStr,-1,lpszStr,dwSize,NULL,FALSE);  
+	return true;  
+}
+
+
+inline void WStrToUTF8(std::string& dest, const wstring& src){
+
+	dest.clear();
+
+	for (size_t i = 0; i < src.size(); i++){
+
+		wchar_t w = src[i];
+
+		if (w <= 0x7f)
+
+			dest.push_back((char)w);
+
+		else if (w <= 0x7ff){
+
+			dest.push_back(0xc0 | ((w >> 6)& 0x1f));
+
+			dest.push_back(0x80| (w & 0x3f));
+
+		}
+
+		else if (w <= 0xffff){
+
+			dest.push_back(0xe0 | ((w >> 12)& 0x0f));
+
+			dest.push_back(0x80| ((w >> 6) & 0x3f));
+
+			dest.push_back(0x80| (w & 0x3f));
+
+		}
+
+		else if (sizeof(wchar_t) > 2 && w <= 0x10ffff){
+
+			dest.push_back(0xf0| ((w >> 18) & 0x07)); // wchar_t 4-bytes situation
+
+			dest.push_back(0x80| ((w >> 12) & 0x3f));
+
+			dest.push_back(0x80| ((w >> 6) & 0x3f));
+
+			dest.push_back(0x80| (w & 0x3f));
+
+		}
+
+		else
+
+			dest.push_back('?');
+
+	}
+
 }
 
 // on "init" you need to initialize your instance
@@ -55,8 +121,16 @@ bool HelloWorld::init()
 
     // add a label shows "Hello World"
     // create and initialize a label
-    
-    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", TITLE_FONT_SIZE);
+
+	//std::string strDest = "";
+	//WStrToUTF8(strDest, L"中国");
+	//CCLabelTTF* pLabel = CCLabelTTF::create(strDest.c_str(), "fonts/arialuni.ttf", 32);
+
+	wchar_t str[100] = {L"中国"};  
+	char strs[200] = {0};  
+	WCharToMByte(str,strs,sizeof(str)/sizeof(strs[0]));
+	CCLabelTTF* pLabel = CCLabelTTF::create(strs, "fonts/arialuni.ttf", 32);
+    //CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", TITLE_FONT_SIZE);
     
     // position the label on the center of the screen
     pLabel->setPosition(ccp(origin.x + visibleSize.width/2,
